@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Task } from "./types/task";
 import TaskCard from "./components/TaskCard";
+import TaskForm from "./components/TaskForm";
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>(() => {
@@ -20,12 +21,22 @@ function App() {
     );
   }
 
+  function handleAdd(title: string) {
+    const newTask: Task = {
+      id: Date.now(),
+      isDone: false,
+      title: title,
+    };
+    setTasks([...tasks, newTask]);
+  }
+
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
   return (
     <div>
+      <TaskForm onAdd={handleAdd} />
       {tasks.map((task) => (
         <TaskCard key={task.id} task={task} onToggle={handleToggle} />
       ))}
