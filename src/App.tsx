@@ -1,28 +1,26 @@
-import TaskCard from "./components/TaskCard";
-import TaskForm from "./components/TaskForm";
-import { useTasks } from "./hooks/useTasks";
 import { TaskProvider } from "./contexts/TaskProvider";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/Home";
+import Done from "./pages/Done";
+import TaskDetail from "./pages/TaskDetail";
 
-function TaskList() {
-  const { tasks, handleToggle } = useTasks();
-  return (
-    <>
-      {tasks.map((task) => (
-        <TaskCard key={task.id} task={task} onToggle={handleToggle} />
-      ))}
-    </>
-  );
-}
 function App() {
   return (
     <div>
-      <TaskProvider>
-        <div>
-          <h1>Task Manager</h1>
-          <TaskForm />
-          <TaskList />
-        </div>
-      </TaskProvider>
+      <BrowserRouter>
+        <TaskProvider>
+          <nav>
+            <Link to="/">All Tasks</Link>
+            {" | "}
+            <Link to="/done">Tasks Done</Link>
+          </nav>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/done" element={<Done />} />
+            <Route path="/task/:id" element={<TaskDetail />} />
+          </Routes>
+        </TaskProvider>
+      </BrowserRouter>
     </div>
   );
 }
