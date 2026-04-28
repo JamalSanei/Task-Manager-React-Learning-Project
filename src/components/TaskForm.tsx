@@ -1,16 +1,14 @@
 import { useState } from "react";
+import { useTasks } from "../hooks/useTasks";
 
-interface Props {
-  onAdd: (title: string) => void;
-}
-
-function TaskForm({ onAdd }: Props) {
+function TaskForm() {
+  const { handleAdd } = useTasks();
   const [title, setTitle] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!title.trim()) return;
-    onAdd(title.trim());
+    handleAdd(title.trim());
     setTitle("");
   }
 
