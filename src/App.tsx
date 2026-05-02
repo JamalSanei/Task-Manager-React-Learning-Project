@@ -1,24 +1,20 @@
 import { TaskProvider } from "./contexts/TaskProvider";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Home from "./pages/Home";
-import Done from "./pages/Done";
-import TaskDetail from "./pages/TaskDetail";
+import { BrowserRouter, Link } from "react-router-dom";
+import AppRoutes from "./router";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <TaskProvider>
+          <AppRoutes />
           <nav>
             <Link to="/">All Tasks</Link>
             {" | "}
-            <Link to="/done">Tasks Done</Link>
+            <Link to="/task/done">Tasks Done</Link>
+            {" | "}
+            <Link to="/task/api-tasks">Api Tasks</Link>
           </nav>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/done" element={<Done />} />
-            <Route path="/task/:id" element={<TaskDetail />} />
-          </Routes>
         </TaskProvider>
       </BrowserRouter>
     </div>
